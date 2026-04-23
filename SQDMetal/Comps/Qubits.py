@@ -1019,7 +1019,7 @@ class TransmonTaperedInsets(BaseQubit):
         ###############################################################################################
         # Josephson Junction
         rect_jj = draw.LineString(
-            [(0, -p.inductor_height / 2), (0, p.inductor_height / 2)]
+            [(top_pin.coords[0][0],-p.inductor_height/2),(top_pin.coords[0][0],p.inductor_height/2)]
         )
 
         # Pocket

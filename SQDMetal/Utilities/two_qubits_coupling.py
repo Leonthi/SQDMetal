@@ -160,8 +160,9 @@ def two_qubits_coupling(
     l_fullwave, _, _ = cpw_calculations.guided_wavelength(freq=resonator.f0,line_width=cpw_width,
                 line_gap=cpw_gap,substrate_thickness=cpw.dielectric_thickness,film_thickness=200e-9,)
     l_halfwave = l_fullwave / 2
-
-    readout_pad_options = Dict(
+    
+    if readout_pad:
+      readout_pad_options = Dict(
         connection_pads=Dict(
             readout=Dict(
                 cpw_extend="5um",
@@ -172,7 +173,9 @@ def two_qubits_coupling(
                 loc_H="-1",
             )
         )
-    )
+      )
+    else:
+        readout_pad_options = Dict()
      
     surname = '' 
     qubit1_exist = False
@@ -183,13 +186,13 @@ def two_qubits_coupling(
 
     TransmonTaperedInsets(design, f'Q5{surname}', options = Dict(pos_x = f'{pos_x1}mm', pos_y = f'{pos_y1}mm', orientation = q_orient,
                                                        pocket_lower_tighten = '-100.0um',pocket_height = '500um', pocket_width = '1000um', chrgln_pin_x_offset=f"{chrgln_pin_x_offset}um", chrgln_pin_y_offset=f"{chrgln_pin_y_offset}um",
-                                                       taper_width_base = f"{taper_width_base}um", junction_centered = junction_centered_left,
+                                                       taper_width_base = f"{taper_width_base}um", junction_centered = junction_centered_left,inductor_height='40um',
                                                        **readout_pad_options))
 
 
     TransmonTaperedInsets(design, f'Q4{surname}', options = Dict(pos_x = f'{pos_x2}mm', pos_y = f'{pos_y2}mm', orientation = q_orient,
                                                       pocket_lower_tighten = '-100.0um',pocket_height = '500um', pocket_width = '1000um', chrgln_pin_x_offset=f"{chrgln_pin_x_offset}um", chrgln_pin_y_offset=f"{chrgln_pin_y_offset}um",
-                                                      taper_width_base = f"{taper_width_base}um", junction_centered = junction_centered_right,
+                                                      taper_width_base = f"{taper_width_base}um", junction_centered = junction_centered_right,inductor_height='40um',
                                                        **readout_pad_options))
 
 
